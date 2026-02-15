@@ -1,0 +1,18 @@
+{
+  "characters": [
+    {"name": "Wemmbu", "file": "characters/wemmbu.html"},
+    {"name": "Eggchan", "file": "characters/eggchan.html"}
+  ],
+  "arcs": [
+    {"name": "Prince Zam Empire", "file": "arcs/princeZamEmpire.html"},
+    {"name": "The Exploit", "file": "arcs/theExploit.html"}
+  ],
+  "items": [
+    {"name": "Parrots Spyglass", "file": "itemsandartifacts/parrotsSpyglass.html"},
+    {"name": "Gambit Mace", "file": "itemsandartifacts/gambitMace.html"}
+  ],
+  "locations": [
+    {"name": "Invisible Mafia", "file": "locations/invisableMafia.html"},
+    {"name": "Law City", "file": "locations/lawCity.html"}
+  ]
+}
