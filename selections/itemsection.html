@@ -1,0 +1,14 @@
+<script>
+fetch('../data.json')
+.then(res => res.json())
+.then(data => {
+    const listDiv = document.getElementById('list');
+    data.items.forEach(item => {
+        const a = document.createElement('a');
+        a.href = '../' + item.file;
+        a.textContent = item.name;
+        a.className = 'section-button';
+        listDiv.appendChild(a);
+    });
+});
+</script>
