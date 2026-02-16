@@ -1,14 +1,56 @@
-<script>
-fetch('../data.json')
-.then(res => res.json())
-.then(data => {
-    const listDiv = document.getElementById('list');
-    data.items.forEach(item => {
-        const a = document.createElement('a');
-        a.href = '../' + item.file;
-        a.textContent = item.name;
-        a.className = 'section-button';
-        listDiv.appendChild(a);
-    });
-});
-</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Items</title>
+    <link rel="stylesheet" href="../style.css">
+
+            <style>
+#list {
+    display: flex;
+    flex-direction: column; /* stacks children vertically */
+    align-items: center;    /* optional: centers buttons horizontally */
+    gap: 15px;              /* space between each button */
+    margin-top: 30px;
+}
+
+.section-button {
+    display: block;         /* ensures each button is a block element */
+    width: 250px;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: #2196F3;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;     /* centers text inside the button */
+    transition: background-color 0.3s ease;
+}
+.section-button:hover {
+    background-color: #1976D2;
+}
+    </style>
+</head>
+<body>
+
+    <h1>Arcs</h1>
+    <div id="list"></div>
+
+    <script>
+        // Load the JSON file
+        fetch('../data.json')
+        .then(response => response.json())
+        .then(data => {
+            const listDiv = document.getElementById('list');
+            data.items.forEach(item => {
+            const a = document.createElement('a');
+                a.href = '../' + item.file; 
+                a.textContent = item.name;
+                a.className = 'section-button';
+                listDiv.appendChild(a);
+            });
+        });
+    </script>
+</body>
+</html>

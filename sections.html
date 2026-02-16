@@ -1,54 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unstable SMP - Sections</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Basic styling for sections page */
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 50px;
-            font-family: 'Arial', sans-serif;
-            background-color: #f5f5f5;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unstable SMP Book - Sections</title>
+<style>
 
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 40px;
-            color: #333;
-        }
+* {
+  box-sizing: border-box;
+}
 
-        .section-button {
-            display: block;
-            width: 250px;
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 1.2em;
-            background-color: #2196F3;
-            color: white;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: background-color 0.3s ease;
-        }
+/* SAME VALUES AS COVER PAGE */
+:root {
+  --book-height: 600px;
+  --page-width: 400px;
+  --book-open-width: 800px;
+}
 
-        .section-button:hover {
-            background-color: #1976D2;
-        }
-    </style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background: #f5f5f5;
+  font-family: Arial, sans-serif;
+}
+
+/* BOOK */
+.book {
+  width: var(--book-open-width);
+  height: var(--book-height);
+  display: flex;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+}
+
+/* BOTH PAGES */
+.page {
+  width: var(--page-width);
+  height: 100%;
+  border: 5px solid #333;
+  background: white;
+}
+
+/* LEFT PAGE */
+.page.left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5em;
+  border-right: none;
+}
+
+/* RIGHT PAGE */
+.page.right {
+  background: #fafafa;
+  padding: 30px;
+  overflow-y: auto;
+  box-shadow:
+    inset 15px 0 25px rgba(0,0,0,0.05);
+}
+
+
+</style>
 </head>
 <body>
 
-    <h1>Choose a Section</h1>
+<div class="book">
 
-    <a href="selections/charecterselection.html" class="section-button">Characters</a>
-    <a href="selections/arcselection.html" class="section-button">Arcs</a>
-    <a href="selections/locationselection.html" class="section-button">Locations</a>
-    <a href="selections/itemsection.html" class="section-button">Items & Artifacts</a>
+  <!-- Left cover page (can have static text or cover) -->
+  <div class="page left">
+    Unstable SMP
+  </div>
+
+  <!-- Right page: dynamic content -->
+  <div class="page right" id="rightPage">
+    <h1>Choose a Section</h1>
+    <div id="sectionsContainer"></div>
+  </div>
+
+</div>
+
+<script>
+// Load data.json dynamically
+fetch('data.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById('sectionsContainer');
+
+    // loop over the main categories
+    const categories = [
+      { key: 'characters', label: 'Characters' },
+      { key: 'arcs', label: 'Arcs' },
+      { key: 'locations', label: 'Locations' },
+      { key: 'items', label: 'Items & Artifacts' }
+    ];
+
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'section-button';
+      btn.textContent = cat.label;
+
+      // when clicked, list items from data.json
+      btn.addEventListener('click', () => {
+        container.innerHTML = `<h1>${cat.label}</h1>`; // title
+        const listDiv = document.createElement('div');
+        data[cat.key].forEach(item => {
+          const a = document.createElement('a');
+          a.href = item.file; // later could flip page instead
+          a.textContent = item.name;
+          a.className = 'section-button';
+          listDiv.appendChild(a);
+        });
+        container.appendChild(listDiv);
+      });
+
+      container.appendChild(btn);
+    });
+  });
+</script>
 
 </body>
 </html>
